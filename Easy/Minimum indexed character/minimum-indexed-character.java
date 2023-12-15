@@ -2,45 +2,51 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-class GFG
-{
-    public static void main(String[] args) throws IOException
-    {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine().trim());
-        while(T-->0)
-        {
-            String str = br.readLine().trim();
-            String patt = br.readLine().trim();
-            Solution obj = new Solution();
-            System.out.println(obj.printMinIndexChar(str, patt));
-        }
-    }
-}
+
+
 // } Driver Code Ends
 
+//User function template for JAVA
 
-
-
-class Solution{
-    
-    // Function to find the character in patt which is present in str at min index
-    public static String printMinIndexChar(String S, String patt){
-        
+class Solution
+{
+    //Function to find the minimum indexed character.
+    public static int minIndexChar(String str, String patt)
+    {
         // Your code here
-        
-        // you don't need to print anything
-        LinkedHashSet<Character> list = new LinkedHashSet<>();
+        TreeSet<Character> list = new TreeSet<>();
         for(int i=0;i<patt.length();i++){
             list.add(patt.charAt(i));
         }
-        for(int i=0;i<S.length();i++){
-            if(list.contains(S.charAt(i))){
-                return String.valueOf(S.charAt(i));
+        
+        for(int i=0;i<str.length();i++){
+            if(list.contains(str.charAt(i))){
+                return i;
             }
         }
-        return "$";
-    
+        return -1;
     }
-    
 }
+
+
+//{ Driver Code Starts.
+
+class GFG {
+	public static void main (String[] args) 
+	{
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t>0)
+		{
+		    t--;
+		    
+		    String s1=sc.next();
+		    String s2=sc.next();
+		    
+		    int res = new Solution().minIndexChar(s1, s2);
+		    System.out.println(res);
+		}
+	}
+}
+
+// } Driver Code Ends
