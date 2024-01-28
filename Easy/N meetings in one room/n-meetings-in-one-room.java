@@ -33,63 +33,34 @@ class GFG {
 // } Driver Code Ends
 
 
-
-
-// class Solution 
-// {
-//     //Function to find the maximum number of meetings that can
-//     //be performed in a meeting room.
-//     public static int maxMeetings(int start[], int end[], int n)
-//     {
-//         // add your code here
-//         int count =1;
-//         for(int i=0;i<n-1;i++){
-//             if(i+1<n && i-1>0 && start[i]>end[i-1] && start[i]<end[i]  ){
-//                 count++;
-//             }
-//         }
-//         return count;
-//     }
-// }
-
-
-
-
-class Solution {
-    // Function to find the maximum number of meetings that can
-    // be performed in a meeting room.
-    public static int maxMeetings(int start[], int end[], int n) {
-        // Create an array of Meeting objects to store start and end times
-        Meeting[] meetings = new Meeting[n];
-        for (int i = 0; i < n; i++) {
-            meetings[i] = new Meeting(start[i], end[i]);
-        }
-
-        // Sort the meetings array based on the end times
-        Arrays.sort(meetings, Comparator.comparingInt(a -> a.end));
-
-        int count = 1; // First meeting can always be attended
-        int lastEnd = meetings[0].end;
-
-        // Check if each meeting can be attended
-        for (int i = 1; i < n; i++) {
-            if (meetings[i].start > lastEnd) {
-                count++;
-                lastEnd = meetings[i].end;
-            }
-        }
-
-        return count;
-    }
-
-    // Inner class representing a meeting with start and end times
-    static class Meeting {
-        int start;
-        int end;
-
-        Meeting(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        // add your code here
+       ArrayList<Map.Entry<Integer,Integer>> list = new ArrayList<>();
+       for(int i=0;i<n;i++){
+           list.add(new AbstractMap.SimpleEntry(start[i],end[i]));
+       }
+       
+       list.sort(Map.Entry.comparingByValue());
+       
+       int count = 1;
+       int endTime = list.get(0).getValue();
+       
+       for(int i=1;i<n;i++){
+           int startTime=list.get(i).getKey();
+           
+           if(startTime>endTime){
+               count++;
+               endTime=list.get(i).getValue();
+           }
+       }
+       return count;
+        
     }
 }
+
+
