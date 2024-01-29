@@ -111,8 +111,6 @@ class GfG {
 // } Driver Code Ends
 
 
-
-
 //User function Template for Java
 
 
@@ -132,41 +130,22 @@ class Node
 
 class Solution{
     //Function to return list containing elements of right view of binary tree.
-    ArrayList<Integer> rightView(Node root) {
-        //add code here.
-        ArrayList<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
+    public static void helper(Node node , ArrayList<Integer> list , int current){
+        if(node==null){
+            return;
         }
-
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            int rightmostNodeValue = 0;
-
-            for (int i = 0; i < levelSize; i++) {
-                Node node = queue.poll();
-
-                // Keep updating the rightmost node value at each level
-                rightmostNodeValue = node.data;
-                
-                 if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
-            }
-
-            // Add the rightmost node value to the result list
-            result.add(rightmostNodeValue);
+        if(current==list.size()){
+            list.add(node.data);
         }
-        ArrayList<Integer> list = new ArrayList<>(result);
-
-        return list;
-
         
+        helper(node.right,list,current+1);
+        helper(node.left,list,current+1);
+    }
+    ArrayList<Integer> rightView(Node node) {
+        //add code here.
+        ArrayList<Integer> list = new ArrayList<>();
+        helper(node,list,0);
+        return list;
     }
 }
+
